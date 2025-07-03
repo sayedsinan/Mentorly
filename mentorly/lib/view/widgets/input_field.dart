@@ -9,6 +9,7 @@ class InputField extends StatefulWidget {
   final bool isPassword;
   final double borderRadius;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   const InputField({
     super.key,
@@ -20,6 +21,7 @@ class InputField extends StatefulWidget {
     this.icon,
     this.isIconNeeded = true,
     this.isPassword = false,
+    this.validator,
   });
 
   @override
@@ -38,6 +40,10 @@ class _InputFieldState extends State<InputField> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          color: Colors.grey.shade400,
+          width: 1.0,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -46,13 +52,13 @@ class _InputFieldState extends State<InputField> {
           ),
         ],
       ),
-      child: TextField(
-        
-        keyboardType: widget.isPassword ? TextInputType.visiblePassword : TextInputType.text,
-        obscureText: widget.isPassword ? _obscureText : false,
+      child: TextFormField(
         controller: widget.controller,
+        keyboardType:
+            widget.isPassword ? TextInputType.visiblePassword : TextInputType.text,
+        obscureText: widget.isPassword ? _obscureText : false,
+        validator: widget.validator,
         decoration: InputDecoration(
-          
           prefixIcon: (widget.isIconNeeded && widget.icon != null)
               ? Icon(widget.icon, color: Colors.grey)
               : null,
@@ -69,14 +75,13 @@ class _InputFieldState extends State<InputField> {
                   },
                 )
               : null,
-              
           hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.grey),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         ),
       ),
     );
   }
 }
-

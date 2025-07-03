@@ -62,13 +62,15 @@ class LoginPage extends StatelessWidget {
             height: 500,
             width: 400,
             child: Column(
-           
               children: [
-                
-                SizedBox(height: 50,),
+                SizedBox(height: 50),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: Text("Sign In",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),)),
+                  child: Text(
+                    "Sign In",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -77,7 +79,13 @@ class LoginPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 15.0),
-                        child: Text("Email",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "Email",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       InputField(
                         hintText: "Enter your Email",
@@ -86,10 +94,30 @@ class LoginPage extends StatelessWidget {
                         width: 350,
                         borderRadius: 12,
                         icon: Icons.mail_outline,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          }
+
+                          final emailRegex = RegExp(
+                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                          );
+                          if (!emailRegex.hasMatch(value)) {
+                            return 'Enter a valid email';
+                          }
+
+                          return null;
+                        },
                       ),
-                       Padding(
+                      Padding(
                         padding: const EdgeInsets.only(left: 15.0),
-                        child: Text("Password",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "Password",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       InputField(
                         hintText: "Enter your password",
@@ -97,12 +125,25 @@ class LoginPage extends StatelessWidget {
                         height: 50,
                         width: 350,
                         borderRadius: 12,
-                        icon: Icons.lock_outline,
+                        icon: Icons.lock_outlined,
                         isPassword: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          } else if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          return null;
+                        },
                       ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text("Forgot password?"))
+
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text("Forgot password?"),
+                        ),
+                      ),
                     ],
                   ),
                 ),

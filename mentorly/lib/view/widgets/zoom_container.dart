@@ -20,8 +20,8 @@ class _ZoomPulseContainerState extends State<ZoomPulseContainer>
     )..repeat(reverse: true);
 
     _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.5,
+      begin: .5,
+      end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
