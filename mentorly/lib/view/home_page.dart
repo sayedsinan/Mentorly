@@ -16,26 +16,60 @@ class HomePage extends StatelessWidget {
                 radius: 40,
                 backgroundImage: AssetImage('assets/brain.png'),
               ),
-              const SizedBox(width: 16), // spacing between avatar and text
+              const SizedBox(width: 16),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      "Welcome to Mentorly",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Good morning, Alex",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.favorite_border_outlined,
+                              color: Colors.red,
+                            ),
+                            SizedBox(width: 20),
+                            Text(
+                              "Level 12",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              ".",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "240 xp",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Your learning journey starts here",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey[700],
-                      ),
-                    ),
+                    Icon(Icons.notifications_outlined),
+                    Icon(Icons.settings),
                   ],
                 ),
               ),
