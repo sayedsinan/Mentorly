@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/controller/text_controller.dart';
 import 'package:mentorly/view/widgets/input_field.dart';
+import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,6 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textController = Get.find<TextControllers>();
+    final serviceController = Get.find<AuthController>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -136,6 +139,19 @@ class LoginPage extends StatelessWidget {
                           return null;
                         },
                       ),
+                      MyButton(
+                        height: 50,
+                        width: 350,
+                        borderRadius: 12,
+                        buttonColor: blue,
+                        textColor: Colors.white,
+                        text: "Login",
+                        style: TextStyle(),
+                        onTap: () {
+                          serviceController.loginUser();
+                        },
+                      ),
+                      SizedBox(height: 20,),
 
                       Padding(
                         padding: const EdgeInsets.only(right: 15.0),
