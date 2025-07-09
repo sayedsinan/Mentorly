@@ -1,44 +1,58 @@
-import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
-// import { InjectModel } from '@nestjs/mongoose';
-// import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { User, UserDocument } from './schema/user.schema';
 import { error } from 'console';
 // import { JwtService } from '@nestjs/jwt';
 // import * as bcrypt from 'bcryptjs';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
+
 @Injectable()
 export class UserService {
-  private users = [
-    { email: 'test@example.com', password: '123456' },
-    { email: 'sinan@gmail.com', password: 'password' },
-  ];
+  constructor(
+    @InjectModel(User.name)
+    private readonly userModel: Model<UserDocument>
+  ) {}
 
-  async login(UserData: any): Promise<any> {
-    try {
-      const { email, password } = UserData;
-      const user = this.users.find(
-        u => u.email === email && u.password === password,
-      );
-      if (!user) {
-        throw new NotFoundException('Invalid email or password')
-      }
-      return { messeage: 'Login Successful', user };
 
-    }
-    catch (e) {
-      if (e instanceof NotFoundException) {
-        throw e;
-      }
-      throw new InternalServerErrorException(error.toString);
+async login(userData: any): Promise<any> {
+  try {
+    const { email, password } = userData;
+    const user = await this.userModel.findOne({ email, password });
+
+    if (!user) {
+      throw new NotFoundException('Invalid email or password');
     }
 
+    return { message: 'Login Successful', user };
+  } catch (e) {
+    if (e instanceof NotFoundException) {
+      throw e;
+    }
+    throw new InternalServerErrorException(e.message);
+  }
+}
+
+async create(userData: any): Promise<any> {
+  const existingUser = await this.userModel.findOne({ email: userData.email });
+  if (existingUser) {
+    throw new Error('User already exists');
   }
 
-  async create(UserData: any): Promise<any> {
-    this.users.push(UserData);
-    return { message: 'User created', user: UserData };
-  }
+  const createdUser = new this.userModel(userData);
+  const savedUser = await createdUser.save();
 
-  async findAll(): Promise<any[]> {
-    return this.users;
-  }
+  return {
+    message: 'User created successfully',
+    user: savedUser,
+  };
+}
+
+
+  // async findAll(): Promise<any[]> {
+  //   return this.users;
+  // }
 }

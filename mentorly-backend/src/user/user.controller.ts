@@ -9,4 +9,8 @@ export class UserController {
   login(@Body() body: any) {
     return this.userService.login(body);
   }
+   @Post('register')
+  register(@Body() body: any) {
+    return this.userService.create(body);
+  }
 }

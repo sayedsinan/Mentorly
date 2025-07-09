@@ -68,6 +68,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(width:20),
                     Icon(Icons.notifications_outlined),
                     Icon(Icons.settings),
                   ],
