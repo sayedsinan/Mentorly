@@ -6,7 +6,7 @@ import 'package:mentorly/controller/text_controller.dart';
 
 import 'package:mentorly/model/login.dart';
 
-const String base = 'http://10.0.2.2:3000';
+const String base = 'http://localhost:3000';
 
 const loginApi = "$base/api/user";
 
@@ -31,7 +31,6 @@ class AuthController extends GetxController {
     }
   }
 
-  //Supporting Function for login
   Future<void> loginUser() async {
     Login userLogin = Login(
       email: controller.emailController.text,
