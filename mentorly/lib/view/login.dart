@@ -4,7 +4,7 @@ import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/input_field.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/controller/text_controller.dart';
-import 'package:mentorly/controller/services/auth_controller.dart';
+// import 'package:mentorly/controller/services/auth_controller.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textController = Get.find<TextControllers>();
-    final serviceController = Get.find<AuthController>();
+    // final serviceController = Get.find<AuthController>();
 
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;

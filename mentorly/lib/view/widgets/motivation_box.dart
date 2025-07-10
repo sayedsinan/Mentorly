@@ -35,7 +35,7 @@ class MotivationBox extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.refresh, color: Color(0xFF3A65DD)),
