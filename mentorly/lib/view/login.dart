@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:mentorly/view/widgets/main_screen.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/input_field.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
@@ -161,7 +162,8 @@ class LoginPage extends StatelessWidget {
                                 style: TextStyle(),
                                 onTap: () {
                                   // serviceController.loginUser();
-                                  Get.toNamed('/home');
+                                  // Get.toNamed('/home');
+                                  Get.to(MainScreen());
                                 },
                               ),
                             ),
