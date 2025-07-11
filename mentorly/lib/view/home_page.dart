@@ -54,16 +54,55 @@ class HomePage extends StatelessWidget {
               Row(
                 children: [
                   Image.asset('assets/target.png', height: 60, width: 60),
-                  Text("Your Progress",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)
+                  Text(
+                    "Your Progress",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
                 ],
               ),
-            const SizedBox(height: 10),
-             ProgressCard(title: "Mathematics", progress: "75%", strongAreas: ["Algebra","Geomatry","Calculas"], needsImprovement: ["Trigonometry"], onTap: (){},buttonText: "Practice Mathematics",),
-            const SizedBox(height: 20,),
-             ProgressCard(title: "Physics", progress: "75%", strongAreas: ["Mechanics","Thermodynamics",], needsImprovement: ["Optics","Waves"], onTap: (){},buttonText: "Practice Physics",),
-          
-MyButton(text: " Take a Quiz", color: blue, textColor: Colors.white, height: 30, width: 60,image: 'assets/book.png',)
-
+              const SizedBox(height: 10),
+              ProgressCard(
+                title: "Mathematics",
+                progress: "75%",
+                strongAreas: ["Algebra", "Geomatry", "Calculas"],
+                needsImprovement: ["Trigonometry"],
+                onTap: () {},
+                buttonText: "Practice Mathematics",
+              ),
+              const SizedBox(height: 20),
+              ProgressCard(
+                title: "Physics",
+                progress: "75%",
+                strongAreas: ["Mechanics", "Thermodynamics"],
+                needsImprovement: ["Optics", "Waves"],
+                onTap: () {},
+                buttonText: "Practice Physics",
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  MyButton(
+                    text: "Take a Quiz",
+                    color: blue,
+                    textColor: Colors.white,
+                    height: 80,
+                    width: 200,
+                    image: 'assets/book.png',
+                    onPressed: () {},
+                  ),
+                  SizedBox(width: 15),
+                  MyButton(
+                    text: "Ask AI",
+                    color: backgroundColor,
+                    textColor: Colors.black,
+                    height: 80,
+                    width: 200,
+                    image: 'assets/book.png',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              SizedBox(height: 20,)
             ],
           ),
         ),
