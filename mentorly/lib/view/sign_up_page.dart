@@ -1,15 +1,14 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mentorly/view/sign_up_page.dart';
-import 'package:mentorly/view/widgets/main_screen.dart';
+import 'package:mentorly/view/standard_screen.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/input_field.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/controller/text_controller.dart';
 // import 'package:mentorly/controller/services/auth_controller.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class LoginPage extends StatelessWidget {
 
     final double inputWidth = screenWidth * 0.85;
     final double containerWidth = screenWidth * 0.9;
-    final double containerHeight = screenHeight * 0.65;
+    final double containerHeight = screenHeight * 0.69;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -54,7 +53,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sign in to your learning journey",
+                  "Create your account to get started",
                   style: TextStyle(
                     fontSize: screenWidth * 0.045,
                     fontWeight: FontWeight.w400,
@@ -81,7 +80,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       SizedBox(height: screenHeight * 0.05),
                       Text(
-                        "Sign In",
+                        "Create Account",
                         style: TextStyle(
                           fontSize: screenWidth * 0.06,
                           fontWeight: FontWeight.bold,
@@ -92,6 +91,40 @@ class LoginPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text(
+                                "Email",
+                                style: TextStyle(
+                                  fontSize: screenWidth * 0.04,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            InputField(
+                              hintText: "Full Name",
+                              controller: textController.emailController,
+                              height: 50,
+                              width: inputWidth,
+                              borderRadius: 12,
+                              icon: Icons.mail_outline,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Full Name is required';
+                                }
+
+                                final nameRegex = RegExp(r"^[a-zA-Z\s]+$");
+                                if (!nameRegex.hasMatch(value)) {
+                                  return 'Name can only contain letters and spaces';
+                                }
+
+                                if (value.trim().length < 2) {
+                                  return 'Name must be at least 2 characters';
+                                }
+
+                                return null;
+                              },
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left: 15.0),
                               child: Text(
@@ -151,6 +184,7 @@ class LoginPage extends StatelessWidget {
                                 return null;
                               },
                             ),
+                            SizedBox(height: 10,),
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
                               child: MyButton(
@@ -159,13 +193,9 @@ class LoginPage extends StatelessWidget {
                                 borderRadius: 12,
                                 buttonColor: blue,
                                 textColor: Colors.white,
-                                text: "Login",
+                                text: "Create Account",
                                 style: TextStyle(),
-                                onTap: () {
-                                  // serviceController.loginUser();
-                                  // Get.toNamed('/home');
-                                  Get.to(MainScreen());
-                                },
+                                onTap: () =>Get.to(()=>StandardScreen())
                               ),
                             ),
                             SizedBox(height: screenHeight * 0.02),
@@ -182,10 +212,10 @@ class LoginPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Don't have ann account?"),
+                                Text("Already have an account?"),
                                 TextButton(
-                                  onPressed: ()=>Get.to(()=>SignUpPage()),
-                                  child: Text("Sign Up"),
+                                  onPressed: () => Get.back(),
+                                  child: Text("Sign in"),
                                 ),
                               ],
                             ),
