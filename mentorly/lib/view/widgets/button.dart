@@ -8,6 +8,7 @@ class MyButton extends StatelessWidget {
   final double height;
   final double width;
   final String? image;
+  final double? fontSize;
 
   const MyButton({
     super.key,
@@ -18,6 +19,7 @@ class MyButton extends StatelessWidget {
     required this.height,
     required this.width,
     this.image,
+    this.fontSize = 16,
   });
 
   @override
@@ -55,6 +57,7 @@ class MyButton extends StatelessWidget {
           style: TextStyle(
             color: textColor,
             fontWeight: FontWeight.w600,
+            fontSize: fontSize,
           ),
         ),
       ],

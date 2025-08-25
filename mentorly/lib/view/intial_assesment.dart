@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/controller/assesment_controller.dart';
 import 'package:mentorly/view/assesment_test.dart';
 import 'package:mentorly/view/widgets/assesment_time_card.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
@@ -35,7 +36,8 @@ class IntialAssesment extends StatelessWidget {
             : 16.0;
     final cardPadding = isTablet ? 24.0 : 16.0;
     final containerMaxWidth = isTablet ? 500.0 : screenWidth * 0.9;
-
+    final AssessmentController assessmentController =
+        Get.find<AssessmentController>();
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
@@ -237,10 +239,10 @@ class IntialAssesment extends StatelessWidget {
                                       textColor: backgroundColor,
                                       text: "Start Assesment",
                                       style: TextStyle(),
-                                      onTap:
-                                          () => Get.to(
-                                            () => const AssesmentTest(),
-                                          ),
+                                      onTap: () {
+                                        assessmentController.startTimer();
+                                        Get.to(() => const AssessmentTest());
+                                      },
                                     ),
                                   ],
                                 );
@@ -307,10 +309,10 @@ class IntialAssesment extends StatelessWidget {
                                       textColor: backgroundColor,
                                       text: "Start Assesment",
                                       style: TextStyle(),
-                                      onTap:
-                                          () => Get.to(
-                                            () => const AssesmentTest(),
-                                          ),
+                                      onTap: () {
+                                        assessmentController.startTimer();
+                                        Get.to(() => const AssessmentTest());
+                                      },
                                     ),
                                   ],
                                 );

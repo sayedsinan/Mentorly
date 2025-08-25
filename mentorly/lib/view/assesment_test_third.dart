@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mentorly/controller/assesment_controller.dart';
-import 'package:mentorly/view/assesment_test_third.dart';
+import 'package:mentorly/view/assesment_test_second.dart';
 import 'package:mentorly/view/widgets/answer_option.dart';
 import 'package:mentorly/view/widgets/assesment_app_bar.dart';
 import 'package:get/get.dart';
 import 'package:mentorly/view/widgets/button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 
-class AssessmentTest extends StatelessWidget {
-  const AssessmentTest({super.key});
+class AssessmentTestSecond extends StatelessWidget {
+  const AssessmentTestSecond({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AssessmentController>();
     return Scaffold(
       appBar: const AssessmentAppBar(
-        questionNumber: 1,
+        questionNumber: 2,
         totalQuestions: 5,
-        progress: 0.2,
+        progress: 0.4,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +49,7 @@ class AssessmentTest extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text(
-                              "Mathematics",
+                              "Physics",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -82,9 +82,11 @@ class AssessmentTest extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
                       children: [
                         Text(
-                          "What is the value of x in the equation 2x + 5 = 13?",
+                          "What is the SI unit of force?",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -96,31 +98,31 @@ class AssessmentTest extends StatelessWidget {
                           () => Column(
                             children: [
                               AnswerOption(
-                                answer: "x = 3",
+                                answer: "Joule",
                                 isSelected:
-                                    controller.selectedAnswer.value == "x = 3",
-                                onTap: () => controller.selectAnswer("x = 3"),
+                                    controller.selectedAnswer.value == "Joule",
+                                onTap: () => controller.selectAnswer("Joule"),
                               ),
                               SizedBox(height: 10),
                               AnswerOption(
-                                answer: "x = 4",
+                                answer: "Newton",
                                 isSelected:
-                                    controller.selectedAnswer.value == "x = 4",
-                                onTap: () => controller.selectAnswer("x = 4"),
+                                    controller.selectedAnswer.value == "Newton",
+                                onTap: () => controller.selectAnswer("Newton"),
                               ),
                               SizedBox(height: 10),
                               AnswerOption(
-                                answer: "x = 5",
+                                answer: "Watt",
                                 isSelected:
-                                    controller.selectedAnswer.value == "x = 5",
-                                onTap: () => controller.selectAnswer("x = 5"),
+                                    controller.selectedAnswer.value == "Watt",
+                                onTap: () => controller.selectAnswer("Watt"),
                               ),
                               SizedBox(height: 10),
                               AnswerOption(
-                                answer: "x = 6",
+                                answer: "Pascal",
                                 isSelected:
-                                    controller.selectedAnswer.value == "x = 6",
-                                onTap: () => controller.selectAnswer("x = 6"),
+                                    controller.selectedAnswer.value == "Pascal",
+                                onTap: () => controller.selectAnswer("Pascal"),
                               ),
                             ],
                           ),
@@ -134,7 +136,7 @@ class AssessmentTest extends StatelessWidget {
           ),
           SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+            padding: const EdgeInsets.only(left: 15.0,right: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -144,20 +146,17 @@ class AssessmentTest extends StatelessWidget {
                   textColor: Colors.black,
                   height: 50,
                   width: 150,
-                  fontSize: 16,
+                  fontSize:16,
+                  onPressed: ()=>Get.back(),
                 ),
-                MyButton(
+                              MyButton(
                   text: "Next",
                   color: purple,
-                  textColor: Colors.white,
+                  textColor: backgroundColor,
                   height: 50,
                   width: 150,
-                  fontSize: 16,
-                  onPressed:
-                      () => Get.to(
-                        const AssessmentTestSecond(),
-                        transition: Transition.rightToLeft,
-                      ),
+                  fontSize:16,
+                  onPressed: ()=>Get.to(const AssessmentTestThird(),transition: Transition.rightToLeft )
                 ),
               ],
             ),
