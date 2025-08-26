@@ -260,6 +260,7 @@ class IntialAssesment extends StatelessWidget {
                                           height: isTablet ? 120 : 100,
                                           isTablet: isTablet,
                                           isSmallScreen: isSmallScreen,
+                                          
                                         ),
                                         AssessmentCard(
                                           number: "10",

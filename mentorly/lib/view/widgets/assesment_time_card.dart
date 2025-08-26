@@ -7,8 +7,6 @@ class AssessmentCard extends StatelessWidget {
   final double height;
   final bool isTablet;
   final bool isSmallScreen;
-
-  // You can define your theme colors here or pass them in
   final Color lightPurple;
   final Color purple;
 
