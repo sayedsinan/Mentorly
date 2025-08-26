@@ -5,7 +5,6 @@ import 'package:mentorly/view/widgets/chat_app_bar.dart';
 import 'package:mentorly/view/widgets/messeage_bubble.dart';
 import 'package:mentorly/view/widgets/messeage_input.dart';
 import 'package:mentorly/view/widgets/quick_question_section.dart';
-
 import 'package:mentorly/view/widgets/typing_indicator.dart';
 
 class AiChatPage extends StatelessWidget {
@@ -17,48 +16,29 @@ class AiChatPage extends StatelessWidget {
 
     return Scaffold(
       appBar: const AILearningAppBar(),
-      body: Column(
-        children: [
-          QuickQuestionsSection(controller: controller),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(12),
+      body: Obx(
+        () => SingleChildScrollView(
+          controller: controller.scrollController,
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              QuickQuestionsSection(controller: controller),
+              const SizedBox(height: 12),
+              ...controller.messages.map(
+                (message) => MessageBubble(
+                  message: message,
+                  controller: controller,
+                ),
               ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Obx(
-                      () => ListView.builder(
-                        controller: controller.scrollController,
-                        padding: const EdgeInsets.all(16.0),
-                        itemCount:
-                            controller.messages.length +
-                            (controller.isTyping.value ? 1 : 0),
-                        itemBuilder: (context, index) {
-                          if (index == controller.messages.length &&
-                              controller.isTyping.value) {
-                            return const TypingIndicator();
-                          }
-                          final message = controller.messages[index];
-                          return MessageBubble(
-                            message: message,
-                            controller: controller,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+              if (controller.isTyping.value) const TypingIndicator(),
 
-                  MessageInput(controller: controller),
-                ],
-              ),
-            ),
+              const SizedBox(height: 16),
+
+              MessageInput(controller: controller),
+            ],
           ),
-          const SizedBox(height: 10),
-        ],
+        ),
       ),
     );
   }
