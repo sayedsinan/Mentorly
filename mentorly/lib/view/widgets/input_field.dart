@@ -48,38 +48,60 @@ class _InputFieldState extends State<InputField> {
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 6,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: TextFormField(
         controller: widget.controller,
-        keyboardType:
-            widget.isPassword ? TextInputType.visiblePassword : TextInputType.text,
+        keyboardType: widget.isPassword ? TextInputType.visiblePassword : TextInputType.text,
         obscureText: widget.isPassword ? _obscureText : false,
         validator: widget.validator,
         decoration: InputDecoration(
           prefixIcon: (widget.isIconNeeded && widget.icon != null)
-              ? Icon(widget.icon, color: Colors.grey)
-              : null,
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 12),
+                  child: Icon(
+                    widget.icon,
                     color: Colors.grey,
+                    size: 20,
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
+                )
+              : null,
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
+          suffixIcon: widget.isPassword
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 )
               : null,
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
           border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          contentPadding: EdgeInsets.only(
+            top: (widget.height - 24) / 2,
+            bottom: (widget.height - 24) / 2,
+            left: (widget.isIconNeeded && widget.icon != null) ? 0 : 16,
+            right: widget.isPassword ? 0 : 16,
+          ),
+          isDense: true,
         ),
       ),
     );

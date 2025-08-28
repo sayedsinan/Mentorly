@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mentorly/model/leadership_model.dart';
-
 class LeaderShipCard extends StatelessWidget {
   final LeaderShipUser user;
-
   const LeaderShipCard({super.key, required this.user});
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth > 600;
-    final isLargeScreen = screenWidth > 800;
-
-    final avatarSize = isLargeScreen ? 56.0 : isTablet ? 52.0 : 48.0;
-    final crownSize = isLargeScreen ? 56.0 : isTablet ? 52.0 : 48.0;
-    final nameFont = isLargeScreen ? 20.0 : isTablet ? 19.0 : 18.0;
+    final bool isSmallScreen = screenWidth < 400;
+    final double containerPadding = isSmallScreen ? 12 : 16;
+    final double avatarRadius = isSmallScreen ? 18 : 20;
+    final double crownSize = isSmallScreen ? 28 : 32;
+    final double nameFont = isSmallScreen ? 15 : 16;
+    final double xpFont = isSmallScreen ? 16 : 18;
+    final double spacing = isSmallScreen ? 10 : 12;
 
     return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(isLargeScreen ? 20 : isTablet ? 18 : 16),
-      margin: EdgeInsets.symmetric(
-        horizontal: isLargeScreen ? 20 : 16, 
-        vertical: isLargeScreen ? 12 : 8
-      ),
+      padding: EdgeInsets.all(containerPadding),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -30,47 +24,43 @@ class LeaderShipCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.08),
-            spreadRadius: 1,
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            spreadRadius: 0,
+            blurRadius: 4,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
       child: Row(
         children: [
-          // Crown
+
           Container(
             width: crownSize,
             height: crownSize,
-            decoration: const BoxDecoration(
-              color: Color(0xFFFFB800),
-              shape: BoxShape.circle,
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFB800),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
               Icons.emoji_events, 
               color: Colors.white, 
-              size: crownSize * 0.5
+              size: crownSize * 0.55
             ),
           ),
-
-          SizedBox(width: isLargeScreen ? 20 : isTablet ? 18 : 16),
-          
+          SizedBox(width: spacing),
           CircleAvatar(
-            radius: avatarSize / 2,
-            backgroundColor: Colors.grey.shade200,
+            radius: avatarRadius,
+            backgroundColor: Colors.grey.shade300,
             backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
             child: user.avatarUrl == null
                 ? Icon(
                     Icons.person, 
-                    color: Colors.grey.shade400, 
-                    size: avatarSize * 0.5
+                    color: Colors.grey.shade500, 
+                    size: avatarRadius
                   )
                 : null,
           ),
 
-          SizedBox(width: isLargeScreen ? 20 : isTablet ? 18 : 16),
-
-          // Info - Back to Expanded for full content display
+          SizedBox(width: spacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,42 +72,47 @@ class LeaderShipCard extends StatelessWidget {
                     fontWeight: FontWeight.w600, 
                     color: Colors.black87
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: isLargeScreen ? 8 : 6),
+                const SizedBox(height: 2),
                 Row(
                   children: [
-                    Icon(Icons.star_outline, size: 16, color: Colors.grey.shade600),
+                    Icon(Icons.star_outline, size: 14, color: Colors.grey.shade600),
                     const SizedBox(width: 4),
                     Text(
                       "Level ${user.level}", 
                       style: TextStyle(fontSize: 14, color: Colors.grey.shade600)
                     ),
 
-                    SizedBox(width: isLargeScreen ? 20 : isTablet ? 18 : 16),
+                    SizedBox(width: spacing),
 
-                    Icon(Icons.local_fire_department, size: 16, color: Colors.orange.shade600),
-                   
+                    Icon(Icons.local_fire_department, size: 14, color: Colors.orange.shade600),
+                    const SizedBox(width: 4),
+                    Text(
+                      "1", 
+                      style: TextStyle(fontSize: 14, color: Colors.grey.shade600)
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 "${user.xpPoints}",
                 style: TextStyle(
-                  fontSize: isLargeScreen ? 24 : isTablet ? 22 : 20, 
-                  fontWeight: FontWeight.bold, 
+                  fontSize: xpFont, 
+                  fontWeight: FontWeight.w700, 
                   color: const Color(0xFFFF6B35)
                 ),
               ),
+              const SizedBox(height: 2),
               Text(
                 "XP", 
                 style: TextStyle(
-                  fontSize: isLargeScreen ? 14 : 12, 
+                  fontSize: 12, 
                   color: Colors.grey.shade600
                 )
               ),

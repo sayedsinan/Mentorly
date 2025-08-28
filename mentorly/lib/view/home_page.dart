@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mentorly/view/widgets/button.dart';
 import 'package:mentorly/view/widgets/home_app_bar.dart';
 import 'package:mentorly/view/widgets/motivation_box.dart';
 import 'package:mentorly/view/widgets/perfomance_container.dart';
 import 'package:mentorly/view/widgets/progress_card.dart';
+import 'package:mentorly/view/widgets/responsive_button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/view/widgets/today_planing_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +35,16 @@ class HomePage extends StatelessWidget {
                       subHeading: "Study Time",
                     ),
                     PerfomanceContainer(
-                      heading: "45m",
-                      icon: Icons.timelapse,
-                      subHeading: "Study Time",
+                      heading: "+120",
+                      icon: Icons.electric_bolt_rounded,
+                      subHeading: "XP Today",
+                      color: Colors.green,
                     ),
                     PerfomanceContainer(
-                      heading: "45m",
-                      icon: Icons.timelapse,
-                      subHeading: "Study Time",
+                      heading: "87%",
+                      icon: Icons.show_chart_sharp,
+                      subHeading: " Acruracy",
+                      color: Colors.red,
                     ),
                   ],
                 ),
@@ -79,29 +80,7 @@ class HomePage extends StatelessWidget {
                 buttonText: "Practice Physics",
               ),
               SizedBox(height: 20),
-              Row(
-                children: [
-                  MyButton(
-                    text: "Take a Quiz",
-                    color: blue,
-                    textColor: Colors.white,
-                    height: 80,
-                    width: 200,
-                    image: 'assets/book.png',
-                    onPressed: () {},
-                  ),
-                  SizedBox(width: 15),
-                  MyButton(
-                    text: "Ask AI",
-                    color: backgroundColor,
-                    textColor: Colors.black,
-                    height: 80,
-                    width: 200,
-                    image: 'assets/book.png',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
+              ResponsiveButtonRow(blue: blue, backgroundColor: backgroundColor),
               SizedBox(height: 20,)
             ],
           ),

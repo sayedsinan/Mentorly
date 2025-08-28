@@ -38,29 +38,9 @@ class TodayPlaningContainer extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Container(
-                height: 30,
-                width: 105,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFDBEAFE),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 5.0, right: 5),
-                      child: Icon(Icons.favorite_border, size: 12),
-                    ),
-                    Text(
-                      "AI Generated",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
+             
             ],
           ),
-          // Summary row
           Padding(
             padding: const EdgeInsets.only(left: 40.0),
             child: Row(
