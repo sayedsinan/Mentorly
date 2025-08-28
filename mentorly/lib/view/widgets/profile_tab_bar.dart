@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mentorly/view/awards_page.dart';
 import 'package:mentorly/view/overview_page.dart';
-import 'package:mentorly/view/weekly_page.dart';
+import 'package:mentorly/view/profile_activity.dart';
+import 'package:mentorly/view/profile_subjects.dart';
 
 class ProfileTabBar extends StatefulWidget {
   const ProfileTabBar({super.key});
@@ -90,9 +90,9 @@ class _ProfileTabBarState extends State<ProfileTabBar> {
       case 0:
         return const OverviewPage();
       case 1:
-        return const WeeklyPage();
+        return const ProfileSubjects();
       case 2:
-        return const AwardsPage();
+        return const ProfileActivity();
       default:
         return const Center(
           child: Text("Something Went Wrong", style: TextStyle(fontSize: 18)),

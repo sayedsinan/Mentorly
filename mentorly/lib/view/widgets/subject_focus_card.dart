@@ -31,7 +31,6 @@ class CustomSubjectsFocusCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Strong Subjects card
         Expanded(
           child: _buildCustomCard(
             title: strongTitle,
