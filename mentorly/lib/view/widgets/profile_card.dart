@@ -17,43 +17,35 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Define responsive breakpoints
         final double availableWidth = constraints.maxWidth;
         final bool isSmallScreen = availableWidth < 400;
         final bool isMediumScreen = availableWidth >= 400 && availableWidth < 600;
-        final bool isLargeScreen = availableWidth >= 600;
-
-        // Calculate responsive dimensions
         double cardWidth;
         double cardHeight;
         double iconSize;
         double titleFontSize;
         double subtitleFontSize;
-
         if (isSmallScreen) {
-          cardWidth = (availableWidth - 32) / 2; // 2 cards per row with 16px margin each side
+          cardWidth = (availableWidth - 32) / 2; 
           cardHeight = 100;
           iconSize = 32;
           titleFontSize = 20;
           subtitleFontSize = 14;
         } else if (isMediumScreen) {
-          cardWidth = (availableWidth - 48) / 3; // 3 cards per row
+          cardWidth = (availableWidth - 48) / 3;
           cardHeight = 120;
           iconSize = 36;
           titleFontSize = 22;
           subtitleFontSize = 15;
         } else {
-          cardWidth = (availableWidth - 64) / 4; // 4 cards per row
+          cardWidth = (availableWidth - 64) / 4; 
           cardHeight = 130;
           iconSize = 40;
           titleFontSize = 24;
           subtitleFontSize = 16;
         }
-
-        // Ensure minimum and maximum dimensions
         cardWidth = cardWidth.clamp(120.0, 200.0);
         cardHeight = cardHeight.clamp(90.0, 140.0);
-
         return Container(
           width: cardWidth,
           height: cardHeight,
@@ -65,7 +57,7 @@ class ProfileCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: iconSize, color: color),
-              SizedBox(height: cardHeight * 0.06), // 6% of card height
+              SizedBox(height: cardHeight * 0.06), 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
@@ -80,7 +72,7 @@ class ProfileCard extends StatelessWidget {
                   maxLines: 1,
                 ),
               ),
-              SizedBox(height: cardHeight * 0.03), // 3% of card height
+              SizedBox(height: cardHeight * 0.03), 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(

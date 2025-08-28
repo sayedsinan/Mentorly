@@ -57,10 +57,16 @@ class _InputFieldState extends State<InputField> {
         keyboardType: widget.isPassword ? TextInputType.visiblePassword : TextInputType.text,
         obscureText: widget.isPassword ? _obscureText : false,
         validator: widget.validator,
+        textAlignVertical: TextAlignVertical.center,
+        style: const TextStyle(
+          fontSize: 16,
+          height: 1.0, 
+        ),
         decoration: InputDecoration(
           prefixIcon: (widget.isIconNeeded && widget.icon != null)
-              ? Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 12),
+              ? Container(
+                  width: 48, 
+                  alignment: Alignment.center,
                   child: Icon(
                     widget.icon,
                     color: Colors.grey,
@@ -69,12 +75,14 @@ class _InputFieldState extends State<InputField> {
                 )
               : null,
           prefixIconConstraints: const BoxConstraints(
-            minWidth: 0,
+            minWidth: 48,
+            maxWidth: 48,
             minHeight: 0,
           ),
           suffixIcon: widget.isPassword
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 12),
+              ? Container(
+                  width: 48,
+                  alignment: Alignment.center,
                   child: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
@@ -86,22 +94,31 @@ class _InputFieldState extends State<InputField> {
                         _obscureText = !_obscureText;
                       });
                     },
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
                   ),
+                )
+              : null,
+          suffixIconConstraints: widget.isPassword
+              ? const BoxConstraints(
+                  minWidth: 48,
+                  maxWidth: 48,
+                  minHeight: 0,
                 )
               : null,
           hintText: widget.hintText,
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
+            height: 1.0, 
           ),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.only(
-            top: (widget.height - 24) / 2,
-            bottom: (widget.height - 24) / 2,
-            left: (widget.isIconNeeded && widget.icon != null) ? 0 : 16,
-            right: widget.isPassword ? 0 : 16,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: (widget.isIconNeeded && widget.icon != null) ? 0 : 16,
+            vertical: 0, 
           ),
           isDense: true,
+          isCollapsed: false,
         ),
       ),
     );
