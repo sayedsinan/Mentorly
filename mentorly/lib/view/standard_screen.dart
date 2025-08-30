@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/controller/datas.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/view/syllabus_screen.dart';
 import 'package:mentorly/view/widgets/class_card.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 
 class StandardScreen extends StatelessWidget {
-  const StandardScreen({super.key});
+  StandardScreen({super.key});
+
+  final AuthController controller = Get.find<AuthController>();
+final Datas dataController = Get.find<Datas>();
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +93,6 @@ class StandardScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              // Select Your Standard
               Row(
                 children: const [
                   SizedBox(width: 30),
@@ -105,20 +109,26 @@ class StandardScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              Wrap(
-                spacing: 16,
-                runSpacing: 16,
-                children: [
-                  ClassCard(title: 'Class 6', subtitle: 'Grade 6'),
-                  ClassCard(title: 'Class 7', subtitle: 'Grade 7'),
-                  ClassCard(title: 'Class 8', subtitle: 'Grade 8'),
-                  ClassCard(title: 'Class 9', subtitle: 'Grade 9'),
-                  ClassCard(title: 'Class 9', subtitle: 'Grade 10'),
-                  ClassCard(title: 'Class 9', subtitle: 'Grade 11'),
-                  ClassCard(title: 'Class 9', subtitle: 'Grade 12'),
-                ],
+              Obx(
+                () => Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  children:
+                        dataController. classes.map((c) {
+                        return ClassCard(
+                          title: c["title"]!,
+                          subtitle: c["subtitle"]!,
+                          isSelected:
+                              controller.selectedGrade.value == c["subtitle"],
+                          onTap: () {
+                            controller.selectGrade(c["subtitle"]!);
+                          },
+                        );
+                      }).toList(),
+                ),
               ),
               const SizedBox(height: 40),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -130,12 +140,21 @@ class StandardScreen extends StatelessWidget {
                     buttonColor: blue,
                     textColor: backgroundColor,
                     text: "Next > ",
-                    style: TextStyle(),
-                    onTap: () => Get.to(() => SyllabusScreen()),
+                    style: const TextStyle(),
+                    onTap: () {
+                      if (controller.selectedGrade.value.isEmpty) {
+                        Get.snackbar("Error", "Please select a class first");
+                      } else {
+                        Get.to(
+                          () => SyllabusScreen(),
+                          arguments: controller.selectedGrade.value,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),

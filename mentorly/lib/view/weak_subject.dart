@@ -1,38 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/controller/datas.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
+import 'package:mentorly/controller/text_controller.dart';
+import 'package:mentorly/model/register_model.dart';
 import 'package:mentorly/view/intial_assesment.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
-import 'package:mentorly/view/widgets/strong_subject_card.dart';
+
 import 'package:mentorly/view/widgets/style/colors.dart';
+import 'package:mentorly/view/widgets/weak_subject_card.dart';
 
 class WeakSubject extends StatelessWidget {
   const WeakSubject({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> subjects = [
-      {
-        'subject': 'Physics',
-        'topics': 'Mechanics, Thermodynamics, Optics',
-        'icon': Icons.science,
-      },
-      {
-        'subject': 'Mathematics',
-        'topics': 'Algebra, Geometry, Calculus',
-        'icon': Icons.calculate,
-      },
-      {
-        'subject': 'Chemistry',
-        'topics': 'Organic, Inorganic, Physical',
-        'icon': Icons.biotech,
-      },
-      {
-        'subject': 'Biology',
-        'topics': 'Cell Biology, Genetics, Ecology',
-        'icon': Icons.local_florist,
-      },
-    ];
-
+    final AuthController controller = Get.find<AuthController>();
+    final Datas dataController = Get.find<Datas>();
+    final TextControllers textControllers = Get.find<TextControllers>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -130,17 +115,27 @@ class WeakSubject extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 20),
-              Column(
-                children: subjects.map((subjectData) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: StrongSubjectCard(
-                      subject: subjectData['subject'],
-                      topics: subjectData['topics'],
-                      icon: subjectData['icon'],
-                    ),
-                  );
-                }).toList(),
+              Obx(
+                () => Column(
+                  children:
+                      dataController.subjects.map((subjectData) {
+                        final subject = subjectData['subject'];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: WeakSubjectCard(
+                            subject: subject,
+                            topics: subjectData['topics'],
+                            icon: subjectData['icon'],
+                            isSelected: controller.weakSubjects.contains(
+                              subject,
+                            ),
+                            onTap: () {
+                              controller.selectWeakSubject(subject);
+                            },
+                          ),
+                        );
+                      }).toList(),
+                ),
               ),
 
               const SizedBox(height: 40),
@@ -157,7 +152,27 @@ class WeakSubject extends StatelessWidget {
                     textColor: backgroundColor,
                     text: "Continue to test ",
                     style: const TextStyle(),
-                    onTap: () => Get.to(() => const IntialAssesment()),
+                    onTap: () {
+                      if (controller.weakSubjects.isEmpty) {
+                        Get.snackbar(
+                          "Error",
+                          "Please select at least 1 subject",
+                        );
+                      } else {
+                        controller.registerPost(
+                          RegisterModel(
+                            email: textControllers.signupEmail.text,
+                            password: textControllers.signupPasword.text,
+                            fullName: textControllers.fullName.text,
+                            medium: controller.selectedGrade.value,
+                            board: controller.selectedSyllabus.value,
+                            strongSubjects: controller.strongSubjects,
+                            weakSubjects: controller.weakSubjects,
+                          ),
+                        );
+                        print("heloooooo");
+                      }
+                    },
                   ),
                 ],
               ),

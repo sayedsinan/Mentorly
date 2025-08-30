@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/controller/datas.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/view/weak_subject.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/strong_subject_card.dart';
@@ -10,28 +12,8 @@ class StrongSubject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> subjects = [
-      {
-        'subject': 'Physics',
-        'topics': 'Mechanics, Thermodynamics, Optics',
-        'icon': Icons.science,
-      },
-      {
-        'subject': 'Mathematics',
-        'topics': 'Algebra, Geometry, Calculus',
-        'icon': Icons.calculate,
-      },
-      {
-        'subject': 'Chemistry',
-        'topics': 'Organic, Inorganic, Physical',
-        'icon': Icons.biotech,
-      },
-      {
-        'subject': 'Biology',
-        'topics': 'Cell Biology, Genetics, Ecology',
-        'icon': Icons.local_florist,
-      },
-    ];
+    final AuthController controller = Get.find<AuthController>();
+    final Datas dataController = Get.find<Datas>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,6 +49,7 @@ class StrongSubject extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
+              // Progress bar
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -90,6 +73,8 @@ class StrongSubject extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
+
+              // Tabs
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
@@ -127,18 +112,26 @@ class StrongSubject extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 20),
-              Column(
-                children: subjects.map((subjectData) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: StrongSubjectCard(
-                      subject: subjectData['subject'],
-                      topics: subjectData['topics'],
-                      icon: subjectData['icon'],
-                    ),
-                  );
-                }).toList(),
-              ),
+
+         
+              Obx(() => Column(
+                    children: dataController.subjects.map((subjectData) {
+                      final subject = subjectData['subject'];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: StrongSubjectCard(
+                          subject: subject,
+                          topics: subjectData['topics'],
+                          icon: subjectData['icon'],
+                          isSelected: controller.strongSubjects
+                              .contains(subject),
+                          onTap: () {
+                            controller.selectStrongSubject(subject);
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  )),
 
               const SizedBox(height: 40),
 
@@ -154,7 +147,14 @@ class StrongSubject extends StatelessWidget {
                     textColor: backgroundColor,
                     text: "Next > ",
                     style: const TextStyle(),
-                    onTap: () => Get.to(() => const WeakSubject()),
+                    onTap: () {
+                      if (controller.strongSubjects.isEmpty) {
+                        Get.snackbar("Error", "Please select at least 1 subject");
+                      } else {
+                        Get.to(() => const WeakSubject(),
+                            arguments: controller.strongSubjects);
+                      }
+                    },
                   ),
                 ],
               ),

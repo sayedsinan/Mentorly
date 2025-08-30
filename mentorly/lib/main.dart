@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mentorly/controller/assesment_controller.dart';
 import 'package:mentorly/controller/chat_controller.dart';
+import 'package:mentorly/controller/datas.dart';
 import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/controller/text_controller.dart';
 import 'package:mentorly/view/home_page.dart';
@@ -12,7 +13,8 @@ void main() {
   Get.put(TextControllers());
   Get.put(AuthController());
   Get.put(AssessmentController());
-   Get.put(ChatController());
+  Get.put(ChatController());
+  Get.put(Datas());
   runApp(MyApp());
 }
 

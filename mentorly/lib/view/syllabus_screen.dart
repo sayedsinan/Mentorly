@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/controller/datas.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/view/widgets/syllabus_card.dart';
-import 'package:mentorly/view/strong_subject.dart'; 
+import 'package:mentorly/view/strong_subject.dart';
 
 class SyllabusScreen extends StatelessWidget {
-  const SyllabusScreen({super.key});
+  SyllabusScreen({super.key});
 
+final AuthController controller = Get.find<AuthController>();
+final Datas dataController = Get.find<Datas>();
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +49,7 @@ class SyllabusScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
+              // Progress indicator
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -87,12 +94,12 @@ class SyllabusScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-            
+
               Row(
                 children: const [
                   SizedBox(width: 5),
                   Text(
-                    'Select Your Standard',
+                    'Select Your Board',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -104,75 +111,32 @@ class SyllabusScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              BoardOptionCard(
-                title: "CBSE",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: true,
-              ),
-              BoardOptionCard(
-                title: "ICSE",
-                subtitle: "Indian Certificate of Secondary Education",
-                description:
-                    "English-medium education with comprehensive curriculum",
-                isSelected: true,
-                onTap: () {},
-                isPopular: true,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [Text("State Boards")],
-              ),
-              BoardOptionCard(
-                title: "Kerala State Board",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: false,
-              ),
-              BoardOptionCard(
-                title: "Tamil Nadu Board",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: false,
-              ),
-              BoardOptionCard(
-                title: "Maharashtra Board",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: false,
-              ),
-              BoardOptionCard(
-                title: "Karnataka Board",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: false,
-              ),
-              BoardOptionCard(
-                title: "Andra pradesh Board",
-                subtitle: "Central Board of Secondary Education",
-                description: "National curriculum followed across India",
-                isSelected: false,
-                onTap: () {},
-                isPopular: false,
-              ),
+              // 👇 Reactive Board List
+              Obx(() => Column(
+                    children: dataController.boards.map((b) {
+                      return BoardOptionCard(
+                        title: b["title"],
+                        subtitle: b["subtitle"],
+                        description: b["description"],
+                        isPopular: b["isPopular"],
+                        isSelected:
+                            controller.selectedSyllabus.value == b["title"],
+                        onTap: () {
+                          controller.selectSyllabus(b["title"]);
+                        },
+                      );
+                    }).toList(),
+                  )),
+
               const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.space,
                 children: [
-                  TextButton(onPressed: ()=>Get.back(), child: Text("Back",style: TextStyle(color: Colors.grey),)),
-                  Text("Step 2 of 2"),
+                  TextButton(
+                      onPressed: () => Get.back(),
+                      child: const Text("Back",
+                          style: TextStyle(color: Colors.grey))),
+                  const Text("Step 2 of 2"),
                   MyButton(
                     height: 40,
                     width: 150,
@@ -180,12 +144,20 @@ class SyllabusScreen extends StatelessWidget {
                     buttonColor: blue,
                     textColor: backgroundColor,
                     text: "Complete Setup > ",
-                    style: TextStyle(),
-                    onTap: () => Get.to(() => StrongSubject()),
+                    style: const TextStyle(),
+                    onTap: () {
+                      if (controller.selectedSyllabus.value.isEmpty) {
+                        Get.snackbar("Error", "Please select a board first");
+                      } else {
+                        // Pass selected board to next screen
+                        Get.to(() => StrongSubject(),
+                            arguments: controller.selectedSyllabus.value);
+                      }
+                    },
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),

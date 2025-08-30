@@ -103,7 +103,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             InputField(
                               hintText: "Full Name",
-                              controller: textController.emailController,
+                              controller: textController.fullName,
                               height: 50,
                               width: inputWidth,
                               borderRadius: 12,
@@ -137,7 +137,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             InputField(
                               hintText: "Enter your Email",
-                              controller: textController.emailController,
+                              controller: textController.signupEmail,
                               height: 50,
                               width: inputWidth,
                               borderRadius: 12,
@@ -169,7 +169,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             InputField(
                               hintText: "Enter your password",
-                              controller: textController.passwordController,
+                              controller: textController.signupPasword,
                               height: 50,
                               width: inputWidth,
                               borderRadius: 12,
