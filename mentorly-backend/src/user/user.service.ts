@@ -52,11 +52,11 @@ export class UserService {
         id: savedUser._id,
         name: savedUser.name,
         email: savedUser.email,
-    
+        medium: savedUser.medium,
+        syllabus: savedUser.syllabus,
+        strongSubjects: savedUser.strongSubjects,
+        weakSubjects: savedUser.weakSubjects,
       },
     };
   }
-
-
-
 }

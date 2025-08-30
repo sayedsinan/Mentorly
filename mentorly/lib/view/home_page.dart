@@ -3,7 +3,6 @@ import 'package:mentorly/view/widgets/home_app_bar.dart';
 import 'package:mentorly/view/widgets/motivation_box.dart';
 import 'package:mentorly/view/widgets/perfomance_container.dart';
 import 'package:mentorly/view/widgets/progress_card.dart';
-import 'package:mentorly/view/widgets/responsive_button.dart';
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/view/widgets/today_planing_container.dart';
 
@@ -79,8 +78,6 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
                 buttonText: "Practice Physics",
               ),
-              SizedBox(height: 20),
-              ResponsiveButtonRow(blue: blue, backgroundColor: backgroundColor),
               SizedBox(height: 20,)
             ],
           ),

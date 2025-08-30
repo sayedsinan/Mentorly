@@ -18,13 +18,18 @@ class ResponsiveButtonRow extends StatelessWidget {
      
         bool shouldStackVertically = constraints.maxWidth < 450;
         
-      
-        double buttonWidth = shouldStackVertically 
-            ? constraints.maxWidth 
-            : (constraints.maxWidth - 15) / 2; 
+        double buttonWidth;
         
-   
-        buttonWidth = buttonWidth.clamp(150.0, 300.0);
+        if (shouldStackVertically) {
+          // For vertical stack, use 80% of available width
+          buttonWidth = constraints.maxWidth * 0.8;
+        } else {
+          // For horizontal row, use 40% of available width for each button
+          buttonWidth = constraints.maxWidth * 0.4;
+        }
+        
+        // Clamp to slightly larger range for better button width
+        buttonWidth = buttonWidth.clamp(130.0, 220.0);
         
         if (shouldStackVertically) {
           return Column(
@@ -55,31 +60,28 @@ class ResponsiveButtonRow extends StatelessWidget {
         }
 
         return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Center the buttons with equal spacing
           children: [
-            Expanded(
-              child: MyButton(
-                text: "Take a Quiz",
-                color: blue,
-                textColor: Colors.white,
-                height: 80,
-                width: buttonWidth,
-                image: 'assets/book.png',
-                fontSize: 12,
-                onPressed: () {},
-              ),
+            MyButton(
+              text: "Take a Quiz",
+              color: blue,
+              textColor: Colors.white,
+              height: 80,
+              width: buttonWidth,
+              image: 'assets/book.png',
+              fontSize: 12,
+              onPressed: () {},
             ),
             const SizedBox(width: 15),
-            Expanded(
-              child: MyButton(
-                text: "Ask AI",
-                color: backgroundColor,
-                textColor: Colors.black,
-                height: 80,
-                width: buttonWidth,
-                image: 'assets/book.png',
-                fontSize: 12,
-                onPressed: () {},
-              ),
+            MyButton(
+              text: "Ask AI",
+              color: backgroundColor,
+              textColor: Colors.black,
+              height: 80,
+              width: buttonWidth,
+              image: 'assets/book.png',
+              fontSize: 12,
+              onPressed: () {},
             ),
           ],
         );

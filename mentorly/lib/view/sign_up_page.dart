@@ -94,7 +94,7 @@ class SignUpPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 15.0),
                               child: Text(
-                                "Email",
+                                "Full Name",
                                 style: TextStyle(
                                   fontSize: screenWidth * 0.04,
                                   fontWeight: FontWeight.bold,

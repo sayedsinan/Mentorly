@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/view/widgets/zoom_container.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,7 +10,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _progressController;
   late Animation<double> _progressAnimation;
 
@@ -44,59 +45,104 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final containerSize = screenWidth * 0.25;
+    final logoSize = containerSize.clamp(80.0, 120.0);
+    final titleFontSize = screenWidth * 0.06;
+    final subtitleFontSize = screenWidth * 0.045;
+    final progressBarWidth = screenWidth * 0.7;
+    final loadingTextSize = screenWidth * 0.035;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(top: 330, right: 150, child: ZoomPulseContainer()),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 176, 172, 172),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Image.asset('assets/brain.png', fit: BoxFit.cover),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Mentorly',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                  'Learn Smarter, Grow Faster',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(height: 20),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: SizedBox(
-                    height: 10.0,
-                    width: 250.0,
-                    child: AnimatedBuilder(
-                      animation: _progressAnimation,
-                      builder: (context, child) {
-                        return LinearProgressIndicator(
-                          value: _progressAnimation.value,
-                          valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                          backgroundColor: Colors.grey[300],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Loading your learning experience...',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ],
-            ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05,
+            vertical: screenHeight * 0.02,
           ),
-        ],
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: logoSize,
+                          width: logoSize,
+                          decoration: BoxDecoration(
+                            color: blue,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: Image.asset(
+                              'assets/brain.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+
+                        Positioned(
+                          top: -10,
+                          right: -10,
+                          child: ZoomPulseContainer(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.025),
+
+                    Text(
+                      'Mentorly',
+                      style: TextStyle(
+                        fontSize: titleFontSize.clamp(20.0, 32.0),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    Text(
+                      'Learn Smarter, Grow Faster',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: subtitleFontSize.clamp(16.0, 24.0),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.04),
+
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: SizedBox(
+                        height: 10.0,
+                        width: progressBarWidth.clamp(200.0, 400.0),
+                        child: AnimatedBuilder(
+                          animation: _progressAnimation,
+                          builder: (context, child) {
+                            return LinearProgressIndicator(
+                              value: _progressAnimation.value,
+                              valueColor: AlwaysStoppedAnimation<Color>(blue),
+                              backgroundColor: Colors.blue.shade100,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.025),
+                    Text(
+                      'Loading your learning experience...',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: loadingTextSize.clamp(14.0, 18.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
