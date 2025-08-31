@@ -4,9 +4,7 @@ import 'package:mentorly/controller/datas.dart';
 import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/controller/text_controller.dart';
 import 'package:mentorly/model/register_model.dart';
-import 'package:mentorly/view/intial_assesment.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
-
 import 'package:mentorly/view/widgets/style/colors.dart';
 import 'package:mentorly/view/widgets/weak_subject_card.dart';
 

@@ -7,7 +7,7 @@ import 'package:mentorly/controller/text_controller.dart';
 import 'package:mentorly/model/login.dart';
 import 'package:mentorly/model/register_model.dart';
 
-const String base = 'http://10.0.2.2:3000';
+const String base = 'http://127.0.0.1:3000';
 
 const loginApi = "$base/api/user";
 const register = "$base/api/user/register";
