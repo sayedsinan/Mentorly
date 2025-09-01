@@ -23,7 +23,7 @@ final List<String > strongSubjects;
     return {
       'email': email,
       'password': password,
-      'fullName': fullName,
+      'name': fullName,
       'medium': medium,
       'syllabus': board,
       'strongSubjects': strongSubjects,

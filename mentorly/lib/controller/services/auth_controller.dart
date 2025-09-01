@@ -1,16 +1,14 @@
 import 'dart:convert';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentorly/controller/text_controller.dart';
-
 import 'package:mentorly/model/login.dart';
 import 'package:mentorly/model/register_model.dart';
+import 'package:mentorly/view/intial_assesment.dart';
 
-const String base = 'http://127.0.0.1:3000';
-
-const loginApi = "$base/api/user";
-const register = "$base/api/user/register";
+var loginApi = "${dotenv.env['BASE_URL']}/api/user";
+var register = "${dotenv.env['BASE_URL']}/api/user/register";
 
 class AuthController extends GetxController {
   final controller = Get.find<TextControllers>();
@@ -86,9 +84,10 @@ class AuthController extends GetxController {
       print(e);
     }
   }
+
   Future<http.Response> registerPost(RegisterModel model) async {
     final response = await http.post(
-      Uri.parse(register ),
+      Uri.parse(register),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -96,6 +95,7 @@ class AuthController extends GetxController {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('Successfully registered');
+      Get.off(IntialAssesment());
 
       return response;
     } else {

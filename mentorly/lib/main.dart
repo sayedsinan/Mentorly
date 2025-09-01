@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mentorly/controller/assesment_controller.dart';
 import 'package:mentorly/controller/chat_controller.dart';
 import 'package:mentorly/controller/datas.dart';
@@ -9,7 +10,10 @@ import 'package:mentorly/view/login.dart';
 import 'package:mentorly/view/splash_screen.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await dotenv.load(fileName: ".env");
+
   Get.put(TextControllers());
   Get.put(AuthController());
   Get.put(AssessmentController());
