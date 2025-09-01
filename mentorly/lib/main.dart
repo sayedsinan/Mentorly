@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mentorly/controller/assesment_controller.dart';
 import 'package:mentorly/controller/chat_controller.dart';
 import 'package:mentorly/controller/datas.dart';
+import 'package:mentorly/controller/services/ai_controller.dart';
 import 'package:mentorly/controller/services/auth_controller.dart';
 import 'package:mentorly/controller/text_controller.dart';
 import 'package:mentorly/view/home_page.dart';
@@ -10,8 +11,8 @@ import 'package:mentorly/view/login.dart';
 import 'package:mentorly/view/splash_screen.dart';
 import 'package:get/get.dart';
 
-void main()async {
-  WidgetsFlutterBinding.ensureInitialized(); 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
   Get.put(TextControllers());
@@ -19,6 +20,7 @@ void main()async {
   Get.put(AssessmentController());
   Get.put(ChatController());
   Get.put(Datas());
+  Get.put(AiController());
   runApp(MyApp());
 }
 

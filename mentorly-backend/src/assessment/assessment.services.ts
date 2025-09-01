@@ -17,7 +17,7 @@ export class AssessmentService {
   }
 
   async generateAssessment(userId: string): Promise<string> {
-  // Fetch the user data from DB
+
   const user = await this.userModel.findById(userId);
 
   if (!user) return 'User not found';

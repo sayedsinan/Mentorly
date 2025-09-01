@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentorly/controller/assesment_controller.dart';
+import 'package:mentorly/controller/services/ai_controller.dart';
+import 'package:mentorly/controller/services/auth_controller.dart';
+import 'package:mentorly/controller/text_controller.dart';
+import 'package:mentorly/model/register_model.dart';
 import 'package:mentorly/view/assesment_test.dart';
 import 'package:mentorly/view/widgets/assesment_time_card.dart';
 import 'package:mentorly/view/widgets/my_button.dart';
@@ -15,7 +19,9 @@ class IntialAssesment extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final isTablet = screenWidth > 600;
     final isSmallScreen = screenWidth < 360;
-
+    final controller = Get.find<AiController>();
+    final AuthController authController = Get.find<AuthController>();
+    final TextControllers textControllers = Get.find<TextControllers>();
     final iconSize =
         isTablet
             ? 80.0
@@ -241,7 +247,29 @@ class IntialAssesment extends StatelessWidget {
                                       style: TextStyle(),
                                       onTap: () {
                                         assessmentController.startTimer();
-                                        Get.to(() => const AssessmentTest());
+                                        controller.sendPrompt(
+                                          RegisterModel(
+                                            email:textControllers .signupEmail.text,
+                                            password:
+                                                textControllers
+                                                    .signupPasword
+                                                    .text,
+                                            fullName:
+                                                textControllers.fullName.text,
+                                            medium:
+                                                authController
+                                                    .selectedGrade
+                                                    .value,
+                                            board:
+                                                authController
+                                                    .selectedSyllabus
+                                                    .value,
+                                            strongSubjects:
+                                                authController.strongSubjects,
+                                            weakSubjects:
+                                                authController.weakSubjects,
+                                          ),
+                                        );
                                       },
                                     ),
                                   ],
@@ -260,7 +288,6 @@ class IntialAssesment extends StatelessWidget {
                                           height: isTablet ? 120 : 100,
                                           isTablet: isTablet,
                                           isSmallScreen: isSmallScreen,
-                                          
                                         ),
                                         AssessmentCard(
                                           number: "10",
