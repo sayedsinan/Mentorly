@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-
   Get.put(TextControllers());
   Get.put(AuthController());
   Get.put(AssessmentController());

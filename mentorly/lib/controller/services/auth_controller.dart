@@ -58,6 +58,7 @@ class AuthController extends GetxController {
 
       return response;
     } else {
+      
       print('Login failed. Response body: ${response.body}');
       print('Response code: ${response.statusCode}');
       throw Exception('Failed to login');
@@ -95,6 +96,7 @@ class AuthController extends GetxController {
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print('Successfully registered');
+      
       Get.off(IntialAssesment());
 
       return response;

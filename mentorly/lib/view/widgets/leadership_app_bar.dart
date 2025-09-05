@@ -46,16 +46,16 @@ class LeaderboardAppBar extends StatelessWidget implements PreferredSizeWidget {
                         'Leaderboard',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 22,
+                          fontSize: 19,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      // const SizedBox(height: 2),
                       Text(
                         'Compete with fellow learners',
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
-                          fontSize: 14,
+                          fontSize: 10,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
